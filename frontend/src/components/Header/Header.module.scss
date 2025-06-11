@@ -1,0 +1,61 @@
+.header {
+    background: transparent;
+    padding: 0 0 2rem 0;
+
+    .nav {
+        .nav_list {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            justify-content: center;
+            align-items: center;
+
+            &, & * {
+                color: var(--header-text-color);
+            }
+
+            .logo {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 1.5rem;
+                justify-self: start;
+
+                .circle {
+                    height: 2.5rem;
+                    width: 2.5rem;
+                    background: var(--gradient);
+                    border-radius: 50%;
+                    filter: blur(10px);
+                }
+
+                .logo_title {
+                    font-family: var(--title-font);
+                    text-transform: uppercase;
+                    font-size: 1.5em;
+                }
+            }
+
+            .links {
+                display: flex;
+                gap: 1rem;
+                text-transform: uppercase;
+                font-size: 0.75em;
+                .link {
+                    text-decoration: none;
+                    &.active {
+                        text-decoration: underline;
+                        text-decoration-color: var(--main-color1);
+                        text-underline-offset: 0.25rem;
+                    }
+                }
+            }
+
+            .buttons {
+                display: flex;
+                gap: 1.25rem;
+                justify-self: end;
+                align-items: center;
+            }
+        }
+    }
+}

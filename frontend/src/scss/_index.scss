@@ -1,0 +1,22 @@
+.bg {
+    background-image: url("../../public/images/home/home-bg.png");
+    background-size: cover;
+    background-repeat: repeat;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1440px;
+    padding: 2rem 0;
+    margin: 0 auto;
+}
+
+::-webkit-scrollbar {
+    background-color: #000;
+    width: 0.25rem;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--main-color1);
+    border-radius: 0.25rem;
+}

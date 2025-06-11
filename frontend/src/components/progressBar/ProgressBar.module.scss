@@ -1,0 +1,44 @@
+.label {
+    display: flex;
+    width: 50%;
+    align-items: center;
+    span {
+        width: 50%;
+    }
+}
+
+progress {
+    width: 100%;
+    height: 10px;
+    border: none;
+    &::-webkit-progress-value {
+        transition: 0.3s ease-in-out;
+    }
+}
+
+.bad {
+    &::-webkit-progress-value {
+        background-color: var(--red);
+    } 
+    &::-webkit-progress-bar {
+        background-color: #680314;
+    }
+}
+
+.medium {
+    &::-webkit-progress-value {
+        background-color: #f4e43a;
+    }
+    &::-webkit-progress-bar {
+        background-color: #966600;
+    }
+}
+
+.good {
+    &::-webkit-progress-value {
+        background-color: #60ed17;
+    }
+    &::-webkit-progress-bar {
+        background-color: #006650;
+    }
+}
