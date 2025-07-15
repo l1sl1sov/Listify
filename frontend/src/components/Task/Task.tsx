@@ -1,5 +1,6 @@
 import styles from './Task.module.scss';
 import axios from 'axios';
+import React from 'react';
 
 import { TASKS_API } from '../../constants/api';
 import { TaskInterface } from '../../types/task';
@@ -11,7 +12,6 @@ import reopenTaskIcon from '../../assets/icons/reopentask-icon.png';
 import editTaskIcon from '../../assets/icons/edittask-icon.png';
 import { MdOutlineStarOutline } from "react-icons/md";
 import { MdOutlineStarPurple500 } from "react-icons/md";
-import { AddTaskProps } from '../../types/task';
 
 import { Modal } from '../modals/Modal';
 import TaskForm from '../forms/TaskForm';
@@ -20,7 +20,7 @@ interface TaskProps {
     task: TaskInterface;
     deleteTask: (taskId: string) => void;
     onStatusChange: (taskId: string) => void;
-    onTaskChange: (taskId: string, newTitle: string, newDescription: string, is_completed: boolean, priority: number, task_icon: string) => void;
+    onTaskChange: (updatedTask: TaskInterface) => void;
     setSelectedTasks: React.Dispatch<React.SetStateAction<string[]>>;
     isSelectingMode: boolean;
     selectedTasks: string[];
@@ -44,7 +44,7 @@ const Task = ({task, deleteTask, onStatusChange, onTaskChange, setSelectedTasks,
         }
     }
 
-    const handleEditTask = async (data: AddTaskProps) => {
+    const handleEditTask = async (data: TaskUpdateProps) => {
         if (!data.title?.trim()) {
             toast.error(`Field 'title' is required`);
             return;
@@ -147,4 +147,4 @@ const Task = ({task, deleteTask, onStatusChange, onTaskChange, setSelectedTasks,
     )
 }
 
-export default Task
+export default React.memo(Task)

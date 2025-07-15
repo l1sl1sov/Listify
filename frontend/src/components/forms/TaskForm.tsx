@@ -6,11 +6,9 @@ import { useCallback, useState } from 'react';
 import { toast } from 'react-toastify';
 import SelectTaskIcon from '../SelectTaskIcon/SelectTaskIcon';
 
-import { AddTaskProps } from '../../types/task';
-
 interface TaskFormProps {
-    onSubmit: (data: AddTaskProps) => void;
-    initialData?: Partial<AddTaskProps>;
+    onSubmit: (data: AddTaskData) => void;
+    initialData?: Partial<AddTaskData>;
 }
 
 const TaskForm = ({ onSubmit, initialData }: TaskFormProps) => {

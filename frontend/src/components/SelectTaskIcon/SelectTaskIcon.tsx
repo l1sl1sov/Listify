@@ -1,6 +1,6 @@
 import styles from './SelectTaskIcon.module.scss';
 import { useState } from 'react';
-import { icons } from '../../constants/tasks';
+import { ICONS } from '../../constants/tasks';
 
 interface SelectTaskIconProps {
     setIcon?: (iconName: string) => void;
@@ -15,7 +15,7 @@ const SelectTaskIcon = ({ setIcon }: SelectTaskIconProps) => {
         <button type='button' onClick={() => setIsSelectingIcon(prev => !prev)}>Select icon</button>
         {isSelectingIcon && (
             <div className={styles.grid}>
-                {icons.map(icon => (
+                {ICONS.map(icon => (
                     <button type='button' onClick={() => {
                         if (setIcon) {
                             setIcon(icon.name);
