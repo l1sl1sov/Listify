@@ -1,4 +1,4 @@
-import styles from './Task.module.scss';
+import styles from './TaskItem.module.scss';
 import axios from 'axios';
 import React from 'react';
 

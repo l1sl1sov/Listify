@@ -1,10 +1,11 @@
 import axios from "axios";
 import { TASKS_API } from "../constants/api";
-import { TaskOrdering, AddTaskData } from "../types/task";
+import { TaskOrdering, AddTaskData, TaskInterface } from "../types/task";
 import { TaskId } from "../types/task";
 
-export const fetchTasksService = (ordering: TaskOrdering) => {
-  return axios.get(`${TASKS_API}?ordering=${ordering}`);
+export const fetchTasksService = async (ordering: TaskOrdering) => {
+  const response = await axios.get<TaskInterface[]>(`${TASKS_API}?ordering=${ordering}`);
+  return response.data;
 };
 
 export const addTaskService = (data: AddTaskData) => {
