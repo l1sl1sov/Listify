@@ -1,0 +1,30 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Lora:ital,wght@0,400..700;1,400..700&display=swap");
+@import '@/styles/normalize.css';
+@import '@/styles/global.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@theme {
+  --color-primary-500: #eb2a87;
+  --color-primary-100: #ff78b9;
+  --gradient-primary: linear-gradient(
+    to right,
+    var(--color-primary-100),
+    var(--color-primary-500)
+  );
+  --font-default: "inter", sans-serif, -apple-system;
+  --font-header: "EB Garamond";
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

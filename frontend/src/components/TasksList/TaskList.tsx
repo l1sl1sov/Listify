@@ -1,179 +1,201 @@
-import { useState, useEffect, useMemo } from "react";
-import { toast } from "react-toastify";
+import { useState, useEffect } from 'react'
+import { toast } from 'react-toastify'
+import { TaskSkeletonLoader } from '../skeleton/TaskSkeleton/TaskSkeletonLoader'
 
-import { useFetchTasks } from "../../hooks/useTaskQueries";
+import { useFetchTasks } from '../../hooks/useFetchTasks'
 
-import { ORDERING_OPTIONS } from "../../constants/tasks";
-import {
-  TaskInterface,
-  TaskOrdering,
-  UpdateTaskData,
-  AddTaskData,
-} from "../../types/task";
-import {
-  deleteAllTasksService,
-  fetchTasksService,
-  deleteTaskService,
-  deleteBulkService,
-} from "../../services/tasksApiService";
-import AddTaskIcon from "../../assets/icons/addtask-icon.png";
+import { ORDERING_OPTIONS } from '../../constants/tasks'
+import { TaskOrdering, TaskId } from '../../types/task'
+import AddTaskIcon from '../../assets/icons/addtask-icon.png'
+import { useCreateTask } from '../../hooks/useCreateTask'
+import { useDeleteAllTasks } from '@/hooks/useDeleteAllTasks'
+import { useDeleteBulkTasks } from '@/hooks/useDeleteBulkTasks'
 
-import TaskForm from "../forms/TaskForm";
-import ProgressBar from "../progressBar/ProgressBar";
+import AddTaskForm from '../forms/AddTaskForm'
+import ProgressBar from '../progressBar/ProgressBar'
 
-import styles from "./TaskList.module.scss";
+import TaskItem from '../Task/TaskItem'
 
-const TaskList = () => {
+const TaskList = ({ debouncedValue }: { debouncedValue: string }) => {
   const [ordering, setOrdering] = useState<TaskOrdering>(
-    () => (localStorage.getItem("ordering") as TaskOrdering) || "-created_at" // set saved ordering or default
-  );
-  const { tasks, isTasksFetching } = useFetchTasks(ordering);
-  const [selectedTasks, setSelectedTasks] = useState<string[]>([]);
+    () => (localStorage.getItem('ordering') as TaskOrdering) || '-created_at' // set saved ordering or default
+  )
+  const [isAddingTaskMode, setIsAddingTaskMode] = useState<boolean>(
+    localStorage.getItem('addingTaskMode') === 'true'
+  )
+  const [selectedTasks, setSelectedTasks] = useState<TaskId[]>([])
+  const [isSelectingMode, setIsSelectingMode] = useState<boolean>(
+    localStorage.getItem('selectingMode') === 'true'
+  )
+
+  const { tasks, isTasksFetching, isPlaceholderData } = useFetchTasks(ordering)
+  const { createTask, isCreatingTask } = useCreateTask()
+  const { deleteAllTasks, isDeletingAllTasks } = useDeleteAllTasks()
+  const { deleteBulkTasks, isDeletingBulkTasks } = useDeleteBulkTasks()
 
   useEffect(() => {
-    localStorage.setItem("ordering", ordering);
-    // fetchTasks(ordering);
-  }, [ordering]);
+    localStorage.setItem('ordering', ordering)
+  }, [ordering])
 
-  // const handleAddTask = async (newTask: TaskInterface) => {
-  //   setTasks((prevTasks) => [...prevTasks, newTask]);
-  // };
+  useEffect(() => {
+    localStorage.setItem('addingTaskMode', String(isAddingTaskMode))
+  }, [isAddingTaskMode])
 
-  // const clearSelecting = () => {
-  //   setSelectedTasks([]);
-  //   setIsSelecting(false);
-  // };
+  useEffect(() => {
+    localStorage.setItem('selectingMode', String(isSelectingMode))
+  }, [isSelectingMode])
 
-  // const deleteSelectedTasks = async () => {
-  //   if (selectedTasks.length === 0) {
-  //     toast.error("Select tasks to delete");
-  //     return;
-  //   }
-  //   try {
-  //     await deleteBulkService(selectedTasks);
-  //     setTasks((prev) =>
-  //       prev.filter((task) => !selectedTasks.includes(task.task_id))
-  //     );
-  //     clearSelecting();
-  //   } catch (error) {
-  //     console.error("Deleting selected tasks error:", error);
-  //     toast.error("Server error");
-  //   }
-  // };
+  const clearSelecting = () => {
+    setSelectedTasks([])
+    setIsSelectingMode(false)
+  }
 
-  const [isAddingTask, setIsAddingTask] = useState<boolean>(false);
-  const [isSelecting, setIsSelecting] = useState<boolean>(false);
+  const handleDeleteAllTasks = () => {
+    const confirmed = confirm(
+      'Are you sure you want to delete all tasks? This action cannot be undone.'
+    )
+    if (!confirmed) return
+    deleteAllTasks()
+  }
 
-  // const handleDeleteAllTasks = () => {
-  //   const confirmed = window.confirm(
-  //     "Are you sure that you want to delete all tasks?"
-  //   );
-  //   if (confirmed) {
-  //     // deleteAllTasks();
-  //   }
-  // };
+  const handleDeleteBulk = () => {
+    if (selectedTasks.length) {
+      deleteBulkTasks(selectedTasks)
+    } else {
+      toast.error('You marked no tasks to delete')
+    }
+  }
 
-  // const handleTaskStatusChange = (taskId: string) => {
-  //   setTasks((prevTasks) =>
-  //     prevTasks.map((task) => {
-  //       return task.task_id === taskId
-  //         ? { ...task, is_completed: !task.is_completed }
-  //         : task;
-  //     })
-  //   );
-  // };
+  const completedTasksAmount = tasks.filter((task) => task.is_completed).length
 
-  // const handleTaskUpdate = (taskToUpdate: UpdateTaskData) => {
-  //   alert("типа запрос к апи");
-  //   setTasks((prevTasks) =>
-  //     prevTasks.map((task) =>
-  //       task.task_id === taskToUpdate.taskId
-  //         ? { ...task, ...taskToUpdate }
-  //         : task
-  //     )
-  //   );
-  // };
-
-  const completedTasksAmount = tasks.filter(task => task.is_completed).length || 0;
-
-  const progress = tasks.length
-    ? Math.round((completedTasksAmount / tasks.length) * 100)
-    : 0;
+  const progress =
+    tasks.length > 0
+      ? Math.round((completedTasksAmount / tasks.length) * 100)
+      : 0
 
   return (
-    <div className={styles["tasklist-container"]}>
-      <div className={styles["tasklist-info"]}>
-        <div className={styles["first-block"]}>
-          <h2 className={styles.title}>user's task list</h2>
+    <div className="p-6 border-2 border-blue-500 shadow-md rounded-lg w-full flex flex-col gap-8 [&>*]:text-black">
+      <div className="flex flex-col gap-2">
+        <div className="flex justify-between items-center">
+          <h2 className="text-xl font-semibold capitalize">user's task list</h2>
           <button
-            onClick={() => setIsAddingTask((prevState) => !prevState)}
-            className={styles["showforms-button"]}
+            onClick={() => setIsAddingTaskMode((prev) => !prev)}
+            className="bg-transparent p-0"
           >
-            <img src={AddTaskIcon} alt="Add task" title="Add new task"></img>
+            <img
+              src={AddTaskIcon}
+              alt="Add task"
+              title="Add new task"
+              className="w-6 h-6"
+            />
           </button>
         </div>
-        {isAddingTask && (
-          <div className={styles["addtask-forms"]}>
-            {/* <TaskForm onSubmit={handleAddTask} /> */}
+
+        {isAddingTaskMode && (
+          <div className="border border-blue-500 w-full p-4 rounded-xl shadow-md">
+            <AddTaskForm onSubmit={createTask} isPending={isCreatingTask} />
           </div>
         )}
       </div>
-      { isTasksFetching && (
-        <div>Loading...</div>
-      )}
-      {isTasksFetching && (
-        <div>Loading tasks . . .</div>
-      )}
-      {tasks.length > 0 ? (
-        <>
-          <ol className={styles["tasks-ol"]}>
-            <div className={styles.controls}>
-              <label>
-                <select
-                  onChange={(event) =>
-                    setOrdering(event.target.value as TaskOrdering)
-                  }
-                  value={ordering}
-                >
-                  {ORDERING_OPTIONS.map((option) => (
-                    <option key={option.value} value={option.value}>
-                      {option.label}
-                    </option>
-                  ))}
-                </select>
-              </label>
-              <ProgressBar
-                value={progress}
-                message={`Tasks completed on ${progress}%`}
-              />
-            </div>
-            {tasks.map((task) => (
-              <p key={task.task_id}>{task.description}</p>
+
+      <div className="flex justify-between items-center w-full">
+        <label>
+          <select
+            onChange={(e) => setOrdering(e.target.value as TaskOrdering)}
+            value={ordering}
+            className="border rounded px-2 py-1"
+          >
+            {ORDERING_OPTIONS.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
             ))}
+          </select>
+        </label>
+        <ProgressBar
+          value={progress}
+          message={`Tasks completed on ${progress}%`}
+        />
+      </div>
+
+      {isTasksFetching ? (
+        <ol className={'flex flex-col gap-1'}>
+          {Array.from(Array(10)).map((_, i) => (
+            <TaskSkeletonLoader key={i} />
+          ))}
+        </ol>
+      ) : tasks.length > 0 ? (
+        <>
+          <ol
+            className={`flex flex-col gap-1  ${isPlaceholderData ? 'opacity-50' : ''}`}
+          >
+            {debouncedValue
+              ? (() => {
+                  const foundTasksArr = tasks.filter((task) =>
+                    (task.description || task.title).includes(debouncedValue)
+                  )
+                  return foundTasksArr.length ? (
+                    foundTasksArr.map((task) => (
+                      <TaskItem
+                        task={task}
+                        key={task.task_id}
+                        selectParams={{
+                          isSelectingMode,
+                          setSelectedTasks,
+                          selectedTasks
+                        }}
+                      />
+                    ))
+                  ) : (
+                    <div>Task not found</div>
+                  )
+                })()
+              : tasks.map((task) => (
+                  <TaskItem
+                    task={task}
+                    key={task.task_id}
+                    selectParams={{
+                      isSelectingMode,
+                      setSelectedTasks,
+                      selectedTasks
+                    }}
+                  />
+                ))}
           </ol>
-          <div>
+
+          <div className="space-x-2">
             <button
-              // onClick={handleDeleteAllTasks}
-              className={styles["delete-tasks-button"]}
+              className="px-2 py-1 bg-red-600 rounded font-semibold transition-all hover:bg-red-700"
+              onClick={handleDeleteAllTasks}
+              disabled={isDeletingAllTasks}
             >
-              Delete all tasks
+              {isDeletingAllTasks
+                ? 'Deleting all tasks...'
+                : 'Delete all tasks'}
             </button>
-            {isSelecting ? (
-              <div>
+
+            {isSelectingMode ? (
+              <div className="space-x-2">
                 <button
-                  className={styles["delete-tasks-button"]}
-                  // onClick={deleteSelectedTasks}
+                  className="px-2 py-1 bg-red-600 rounded font-semibold transition-all hover:bg-red-700"
+                  onClick={handleDeleteBulk}
+                  disabled={isDeletingBulkTasks}
                 >
-                  Delete selected tasks
+                  {isDeletingBulkTasks
+                    ? 'Deleting selected tasks...'
+                    : 'Delete selected tasks'}
                 </button>
-                <button onClick={() => setIsSelecting(false)}>
+                <button
+                  onClick={clearSelecting}
+                  className="px-2 py-1 bg-gray-200 rounded transition-all hover:bg-gray-300"
+                >
                   Exit selecting mode
                 </button>
               </div>
             ) : (
               <button
-                className={styles["delete-tasks-button"]}
-                onClick={() => setIsSelecting(true)}
+                onClick={() => setIsSelectingMode(true)}
+                className="px-2 py-1 bg-red-600 rounded font-semibold transition-all hover:bg-red-700"
               >
                 Select tasks to delete
               </button>
@@ -181,10 +203,10 @@ const TaskList = () => {
           </div>
         </>
       ) : (
-        <div>No tasks found.</div>
+        <div className="text-gray-500">No tasks found.</div>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default TaskList;
+export default TaskList

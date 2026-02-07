@@ -1,17 +1,13 @@
-//components
-import { WelcomePage } from "./pages/main/WelcomePage";
-import { ToastContainer, Zoom } from "react-toastify";
-import { WorkspacePage } from "./pages/tasks/WorkspacePage";
+import { WelcomePage } from '@pages/main/WelcomePage'
+import { ToastContainer, Zoom } from 'react-toastify'
+import { WorkspacePage } from '@pages/tasks/WorkspacePage'
 
-//styles
-import "./scss/_base.scss";
-import "./scss/_index.scss";
+import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom'
 
-import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 export default function App() {
-  const queryClient = new QueryClient();
+  const queryClient = new QueryClient()
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -38,5 +34,5 @@ export default function App() {
         transition={Zoom}
       />
     </QueryClientProvider>
-  );
+  )
 }

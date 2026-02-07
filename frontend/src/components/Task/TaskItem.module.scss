@@ -1,85 +1,44 @@
 .task {
-    border: 1px solid var(--main-color1);
-    box-shadow: var(--shadow);
-    border-radius: 0.25rem;
-    padding: 0.5rem;
-    display: grid;
+  border: 1px solid var(--main-color1);
+  box-shadow: var(--shadow);
+  border-radius: 0.25rem;
+  padding: 0.5rem;
+  display: grid;
+  align-items: center;
+  grid-template-columns: auto auto;
+  justify-content: space-between;
+  
+  .task-info {
+    display: flex;
+    gap: 0.25rem;
     align-items: center;
-    grid-template-columns: auto auto;
-    justify-content: space-between;
-    .first-block {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        gap: 0.5rem;
-        .priority {
-            display: flex;
-            flex-direction: column;
-            gap: 0.25rem;
-            * {
-                color: var(--main-color2);
-            };
-        }
-        .select-task {
-            display: block;
-            position: relative;
-            cursor: pointer;
-            font-size: 30px;
-            user-select: none;
-            input {
-                position: absolute;
-                opacity: 0;
-                cursor: pointer;
-                height: 0;
-                width: 0;
-            }
-            .checkmark {
-                position: relative;
-                top: 0;
-                left: 0;
-                height: 1.5rem;
-                width: 1.5rem;
-                border-radius: 50%;
-                border: 2px solid var(--main-color1);
-                transition: all 0.2s ease;
-                opacity: 0.25;
-            }
-            input:checked ~ .checkmark {
-                opacity: 1;
-            }
-        }
+    justify-content: center;
+    .texts {
+      display: flex;
+      flex-direction: column;
+      .task-title {
+        font-weight: 600;
+        font-size: 1.25em;
+      }
+      span {
+        width: 100%;
+        word-break: break-all;
+      }
     }
-    .task-info {
-        display: flex;
-        gap: 0.25rem;
-        align-items: center;
-        justify-content: center;
-        .texts {
-            display: flex;
-            flex-direction: column;
-            .task-title {
-                font-weight: 600;
-                font-size: 1.25em;
-            }
-            span {
-                width: 100%;
-                word-break: break-all;
-            }
-        }
-    }
-    .forms {
-        display: flex;
-        flex-direction: row;
-        gap: 0.5rem;
-    }
+  }
+  .forms {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+  }
 }
 
 .task-completed {
-    * {
-        text-decoration: line-through;
-    }
+  * {
+    text-decoration: line-through;
+  }
 }
 
 button {
-    background-color: transparent;
+  background-color: transparent;
 }

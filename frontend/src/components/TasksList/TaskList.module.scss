@@ -1,56 +1,56 @@
 .tasklist-container {
-    padding: 1.5rem;
-    border: 2px solid var(--main-color1);
-    box-shadow: var(--shadow);
-    border-radius: 0.5rem;
-    width: 100%;
+  padding: 1.5rem;
+  border: 2px solid var(--main-color1);
+  box-shadow: var(--shadow);
+  border-radius: 0.5rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  * {
+    color: black;
+  }
+  .title {
+    text-transform: capitalize;
+  }
+
+  .tasklist-info {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
-    * {
-        color: black;
+    gap: 0.5rem;
+    .first-block {
+      display: flex;
+      justify-content: space-between;
+      .showforms-button {
+        background: transparent;
+      }
     }
-    .title {
-        text-transform: capitalize;
+    .addtask-forms {
+      border: 1px solid var(--main-color1);
+      width: 100%;
+      padding: 1rem;
+      border-radius: 1rem;
+      box-shadow: var(--shadow);
     }
+  }
 
-    .tasklist-info {
-        display: flex;
-        flex-direction: column;
-        gap: 0.5rem;
-        .first-block {
-            display: flex;
-            justify-content: space-between;
-            .showforms-button {
-                background: transparent;
-            }
-        }
-        .addtask-forms {
-            border: 1px solid var(--main-color1);
-            width: 100%;
-            padding: 1rem;
-            border-radius: 1rem;
-            box-shadow: var(--shadow);
-        }
+  .tasks-ol {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    .controls {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      align-items: center;
     }
+  }
 
-    .tasks-ol {
-        display: flex;
-        flex-direction: column;
-        gap: 0.25rem;
-        .controls {
-            display: flex;
-            justify-content: space-between;
-            width: 100%;
-            align-items: center;
-        }
-    }
-
-    .delete-tasks-button {
-        padding: 0.3rem 0.5rem 0.3rem 0.5rem;
-        background-color: #d21818;
-        transition: 0.25s ease-in-out;
-        border-radius: 0.25rem;
-        font-weight: 600;
-    }
+  .delete-tasks-button {
+    padding: 0.3rem 0.5rem 0.3rem 0.5rem;
+    background-color: #d21818;
+    transition: 0.25s ease-in-out;
+    border-radius: 0.25rem;
+    font-weight: 600;
+  }
 }

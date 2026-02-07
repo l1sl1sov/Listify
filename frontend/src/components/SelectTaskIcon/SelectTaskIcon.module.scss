@@ -1,10 +1,10 @@
 .grid {
-    background-color: var(--main-color2);
-    border-radius: 0.25rem;
-    display: grid;
-    grid-template-columns: repeat(10, 10%);
-    position: absolute;
-    bottom: 1rem;
-    padding: 0.25rem;
-    z-index: 3;
+  background-color: var(--main-color2);
+  border-radius: 0.25rem;
+  display: grid;
+  grid-template-columns: repeat(10, 10%);
+  position: absolute;
+  bottom: 1rem;
+  padding: 0.25rem;
+  z-index: 3;
 }

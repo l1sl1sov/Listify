@@ -1,0 +1,8 @@
+node_modules build dist coverage  
+*.config.js  
+*.snap  
+.env  
+.vscode  
+.next  
+out  
+public  

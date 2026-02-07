@@ -1,0 +1,19 @@
+.bg {
+  background-image: url('../../public/images/home/home-bg.png');
+  background-size: cover;
+  background-repeat: repeat;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 1440px;
+  padding: 2rem 0;
+  margin: 0 auto;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  cursor: -moz-not-allowed;
+  cursor: -webkit-not-allowed;
+  opacity: 0.5;
+}

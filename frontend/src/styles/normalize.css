@@ -1,0 +1,31 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Montserrat Alternates', sans-serif;
+  font-weight: 500;
+}
+
+a,
+button {
+  cursor: pointer;
+  text-decoration: none;
+  border: 0 solid transparent;
+  color: inherit;
+}
+
+ul,
+ol,
+dl {
+  list-style-type: none;
+}
+
+::-webkit-scrollbar {
+  background-color: #000;
+  width: 0.25rem;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #5bdcff;
+  border-radius: 0.25rem;
+} 
