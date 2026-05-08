@@ -1,0 +1,53 @@
+.tasklist-container {
+  padding: 1.5rem;
+  border: 2px solid var(--main-color1);
+  box-shadow: var(--shadow);
+  border-radius: 0.5rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+.tasklist-container * {
+  color: black;
+}
+.tasklist-container .title {
+  text-transform: capitalize;
+}
+.tasklist-container .tasklist-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.tasklist-container .tasklist-info .first-block {
+  display: flex;
+  justify-content: space-between;
+}
+.tasklist-container .tasklist-info .first-block .showforms-button {
+  background: transparent;
+}
+.tasklist-container .tasklist-info .addtask-forms {
+  border: 1px solid var(--main-color1);
+  width: 100%;
+  padding: 1rem;
+  border-radius: 1rem;
+  box-shadow: var(--shadow);
+}
+.tasklist-container .tasks-ol {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.tasklist-container .tasks-ol .controls {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+}
+.tasklist-container .delete-tasks-button {
+  padding: 0.3rem 0.5rem 0.3rem 0.5rem;
+  background-color: #d21818;
+  transition: 0.25s ease-in-out;
+  border-radius: 0.25rem;
+  font-weight: 600;
+}/*# sourceMappingURL=TaskList.module.css.map */

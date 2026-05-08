@@ -1,0 +1,41 @@
+.task {
+  border: 1px solid var(--main-color1);
+  box-shadow: var(--shadow);
+  border-radius: 0.25rem;
+  padding: 0.5rem;
+  display: grid;
+  align-items: center;
+  grid-template-columns: auto auto;
+  justify-content: space-between;
+}
+.task .task-info {
+  display: flex;
+  gap: 0.25rem;
+  align-items: center;
+  justify-content: center;
+}
+.task .task-info .texts {
+  display: flex;
+  flex-direction: column;
+}
+.task .task-info .texts .task-title {
+  font-weight: 600;
+  font-size: 1.25em;
+}
+.task .task-info .texts span {
+  width: 100%;
+  word-break: break-all;
+}
+.task .forms {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+}
+
+.task-completed * {
+  text-decoration: line-through;
+}
+
+button {
+  background-color: transparent;
+}/*# sourceMappingURL=TaskItem.module.css.map */

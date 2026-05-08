@@ -28,3 +28,12 @@
     transform: translateY(0);
   }
 }
+
+@layer base {
+  input:focus,
+  textarea:focus,
+  select,
+  input[type="checkbox"] {
+    @apply outline-none;
+  }
+}

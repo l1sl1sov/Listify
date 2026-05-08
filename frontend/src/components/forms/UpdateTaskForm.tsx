@@ -1,5 +1,3 @@
-import styles from './TaskForm.module.scss'
-
 import { FormEvent } from 'react'
 import { useCallback, useState } from 'react'
 import { TaskFormData } from '../../types/task'
@@ -60,23 +58,23 @@ const UpdateTaskForm = ({ onSubmit, initialData, isPending }: UpdateTaskFormProp
   )
 
   return (
-    <form onSubmit={handleSubmit} className={styles.form}>
+    <form onSubmit={handleSubmit} className="flex flex-col gap-[0.5rem] [&_input]:outline-none [&_textarea]:outline-none">
       <input
         type="text"
         value={title}
         placeholder="Task name"
         onChange={(event) => setTitle(event.target.value)}
-        className={styles.title}
+        className='text-[1.25em]'
       />
       <textarea
         value={description}
         placeholder="Task description"
         onChange={(event) => setDescription(event.target.value)}
-        className={styles.description}
+        className='py-2 px-0 focus:border-solid focus:border-[1px] focus:border-[#8080804b] focus:border-r-[0.25rem]'
       />
-      <div className={styles.options}>
-        <div className={styles.completeness}>
-          <label className={styles.option}>
+      <div className="flex flex-col gap-4 relative">
+        <div className='flex'>
+          <label className="flex gap-[0.25rem]">
             <input
               type="radio"
               name="isCompleted"
@@ -86,7 +84,7 @@ const UpdateTaskForm = ({ onSubmit, initialData, isPending }: UpdateTaskFormProp
             />
             Completed
           </label>
-          <label className={styles.option}>
+          <label className="flex gap-[0.25rem]">
             <input
               type="radio"
               name="isCompleted"
@@ -97,7 +95,7 @@ const UpdateTaskForm = ({ onSubmit, initialData, isPending }: UpdateTaskFormProp
             Uncompleted
           </label>
         </div>
-        <div className={styles.priority}>
+        <div>
           Priority:{' '}
           <select
             value={priority}

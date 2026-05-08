@@ -1,4 +1,4 @@
-import styles from './ProgressBar.module.scss'
+import styles from './ProgressBar.module.css'
 
 type ProgressBarProps = {
   value: number
@@ -9,8 +9,8 @@ const ProgressBar = ({ value, message }: ProgressBarProps) => {
   const status = value < 30 ? 'bad' : value < 70 ? 'medium' : 'good'
 
   return (
-    <label className={styles.label}>
-      <span>{message}</span>
+    <label className='flex w-1/2 items-center'>
+      <span className='w-1/2'>{message}</span>
       <progress max="100" value={value} className={styles[status]}></progress>
     </label>
   )

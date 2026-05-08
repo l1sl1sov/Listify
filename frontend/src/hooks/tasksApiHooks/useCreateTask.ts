@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { addTaskService } from '../services/tasksApiService'
-import { toastError } from '../utils/task'
+import { addTaskService } from '../../services/tasksApiService'
+import { toastError } from '../../utils/task'
 
 export const useCreateTask = () => {
   const queryClient = useQueryClient()

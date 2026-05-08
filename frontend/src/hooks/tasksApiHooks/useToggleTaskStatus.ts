@@ -36,7 +36,7 @@ export const useToggleTaskStatus = () => {
 
         return { previousTasks }
       },
-      onError: (error, updatedTask, context) => {
+      onError: (_, updatedTask, context) => {
         if (context?.previousTasks) {
           queryClient.setQueryData(['tasks'], context.previousTasks)
         }

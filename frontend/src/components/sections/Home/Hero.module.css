@@ -1,0 +1,33 @@
+.container {
+  margin-top: 5%;
+  display: flex;
+  gap: 15px;
+  flex-direction: column;
+}
+.container .content {
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+.container .content .text {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+.container .content .text .title {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.container .content .text .title span {
+  color: var(--main-color1);
+  font-family: "Audiowide";
+}
+.container .content .text .title h1 {
+  font-family: var(--title-font);
+  text-transform: uppercase;
+  font-size: 45px;
+}/*# sourceMappingURL=Hero.module.css.map */

@@ -1,5 +1,3 @@
-import styles from './TaskForm.module.scss'
-
 import { FormEvent } from 'react'
 import { useCallback, useState, useEffect } from 'react'
 import { TaskFormData } from '../../types/task'
@@ -82,23 +80,24 @@ const AddTaskForm = ({ onSubmit, isPending }: AddTaskFormProps) => {
   )
 
   return (
-    <form onSubmit={handleSubmit} className={styles.form}>
+    <form onSubmit={handleSubmit} className="flex flex-col gap-[0.5rem]">
       <input
         type="text"
         value={title}
         placeholder="Task name"
         onChange={(event) => setTitle(event.target.value)}
-        className={styles.title}
+        className="text-[1.25em]"
       />
       <textarea
         value={description}
         placeholder="Task description"
         onChange={(event) => setDescription(event.target.value)}
-        className={styles.description}
+        className="py-2 px-0 border-solid border-r-[0.25rem] border-[1px] border-transparent transition-colors duration-200 ease-in-out focus:border-[#8080804b]"
       />
-      <div className={styles.options}>
-        <div className={styles.completeness}>
-          <label className={styles.option}>
+
+      <div className="flex flex-col gap-4 relative">
+        <div className="flex flex-row gap-2">
+          <label className="flex gap-[0.25rem]">
             <input
               type="radio"
               name="isCompleted"
@@ -108,7 +107,7 @@ const AddTaskForm = ({ onSubmit, isPending }: AddTaskFormProps) => {
             />
             Completed
           </label>
-          <label className={styles.option}>
+          <label className="flex gap-[0.25rem]">
             <input
               type="radio"
               name="isCompleted"
@@ -119,7 +118,8 @@ const AddTaskForm = ({ onSubmit, isPending }: AddTaskFormProps) => {
             Uncompleted
           </label>
         </div>
-        <div className={styles.priority}>
+
+        <div>
           Priority:{' '}
           <select
             value={priority}
@@ -132,8 +132,10 @@ const AddTaskForm = ({ onSubmit, isPending }: AddTaskFormProps) => {
             <option value="3">High</option>
           </select>
         </div>
+
         <SelectTaskIcon setIcon={setIcon} />
       </div>
+
       <button
         type="button"
         className="bg-gray-400 max-w-[6rem]"

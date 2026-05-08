@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { deleteTaskService } from '../services/tasksApiService'
+import { deleteTaskService } from '../../services/tasksApiService'
 import { toastError } from '@/utils/task'
 import { TaskInterface } from '@/types/task'
 
@@ -16,7 +16,7 @@ export const useDeleteTask = () => {
       )
       return { prevTasks }
     },
-    onError: (error, taskId, context) => {
+    onError: (_, taskId, context) => {
       queryClient.setQueryData(['tasks'], context?.prevTasks)
       toastError('Delete task')
     },
