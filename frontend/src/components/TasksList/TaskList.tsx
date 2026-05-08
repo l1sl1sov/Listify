@@ -139,6 +139,7 @@ const TaskList = ({ debouncedValue }: { debouncedValue: string }) => {
                       <TaskItem
                         task={task}
                         key={task.task_id}
+                        searchValue={debouncedValue}
                         selectParams={{
                           isSelectingMode,
                           setSelectedTasks,
