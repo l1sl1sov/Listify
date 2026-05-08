@@ -2,14 +2,14 @@ import { useState, useEffect } from 'react'
 import { toast } from 'react-toastify'
 import { TaskSkeletonLoader } from '../skeleton/TaskSkeleton/TaskSkeletonLoader'
 
-import { useFetchTasks } from '../../hooks/useFetchTasks'
+import { useFetchTasks } from '../../hooks/tasksApiHooks/useFetchTasks'
 
 import { ORDERING_OPTIONS } from '../../constants/tasks'
 import { TaskOrdering, TaskId } from '../../types/task'
 import AddTaskIcon from '../../assets/icons/addtask-icon.png'
-import { useCreateTask } from '../../hooks/useCreateTask'
-import { useDeleteAllTasks } from '@/hooks/useDeleteAllTasks'
-import { useDeleteBulkTasks } from '@/hooks/useDeleteBulkTasks'
+import { useCreateTask } from '../../hooks/tasksApiHooks/useCreateTask'
+import { useDeleteAllTasks } from '@/hooks/tasksApiHooks/useDeleteAllTasks'
+import { useDeleteBulkTasks } from '@/hooks/tasksApiHooks/useDeleteBulkTasks'
 
 import AddTaskForm from '../forms/AddTaskForm'
 import ProgressBar from '../progressBar/ProgressBar'
@@ -139,6 +139,7 @@ const TaskList = ({ debouncedValue }: { debouncedValue: string }) => {
                       <TaskItem
                         task={task}
                         key={task.task_id}
+                        searchValue={debouncedValue}
                         selectParams={{
                           isSelectingMode,
                           setSelectedTasks,
