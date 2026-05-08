@@ -15,9 +15,9 @@ import UpdateTaskForm from '../forms/UpdateTaskForm'
 import { TaskId } from '../../types/task'
 import { Dispatch, SetStateAction } from 'react'
 
-import { useDeleteTask } from '@/hooks/useDeleteTask'
-import { useToggleTaskStatus } from '@/hooks/useToggleTaskStatus'
-import { useUpdateTask } from '@/hooks/useUpdateTask'
+import { useDeleteTask } from '@/hooks/tasksApiHooks/useDeleteTask'
+import { useToggleTaskStatus } from '@/hooks/tasksApiHooks/useToggleTaskStatus'
+import { useUpdateTask } from '@/hooks/tasksApiHooks/useUpdateTask'
 
 type TaskProps = {
   task: TaskInterface
